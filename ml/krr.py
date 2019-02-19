@@ -72,7 +72,8 @@ def get_trained_krr_model(X, y_labels, alphaRange, gammaRange, cv):
             'Z' : Z, 'G' : G, 'A' : A,
             'bestscore' : best_score})
 
-def get_krr_performance(X, y_labels, alphaRange, gammaRange, num, cv,**kwargs):
+def get_krr_performance(X, y_labels, alphaRange, gammaRange, 
+                        num, cv, **kwargs):
     
     df_columns = ['rms_train', 
                   'rms_test', 
@@ -83,7 +84,7 @@ def get_krr_performance(X, y_labels, alphaRange, gammaRange, num, cv,**kwargs):
                   'best_alpha']
     
     if ('X_ext' in kwargs) and ('y_ext' in kwargs):
-        df_columns += ['rms_ext', 'rel_ext']
+        df_columns += ['rms_ext', 'rel_ext', 'yhat_ext']
     
     result = pd.DataFrame(index = range(num), columns = df_columns)
     
@@ -111,17 +112,17 @@ def get_krr_performance(X, y_labels, alphaRange, gammaRange, num, cv,**kwargs):
                 'rel_train'   : mre(train_y, yhat_train),
                 'bestscore'   : model_data['bestscore'],
                 'best_gamma'  : model_data['hyper_params_optimal'][0],
-                'best_alpha'  : model_data['hyper_params_optimal'][1]
+                'best_alpha'  : model_data['hyper_params_optimal'][1],
                 })
         
         if ('X_ext' in kwargs) and ('y_ext' in kwargs):
             
             yhat_ext = model_data['model'].predict(kwargs['X_ext'])
-            
-            s.append(pd.Series({
-                'rms_ext' : np.sqrt(mse(kwargs['y_ext'], yhat_ext)),
-                'rel_ext' : mre(kwargs['y_ext'], yhat_ext)
-                    }))
+            s = s.append(pd.Series({
+                'rms_ext'   : np.sqrt(mse(kwargs['y_ext'], yhat_ext)),
+                'rel_ext'   : mre(kwargs['y_ext'], yhat_ext),
+                'yhat_ext'  : np.array(yhat_ext)
+                }))
     
         result.loc[index] = s
     

@@ -51,7 +51,7 @@ def pdf_element_density(elements, positions, r, dr, la, lb, lc, r_cut):
             totalA = len(elements) # TOTAL NUMBER OF P1-CONTAINING ELEMENTS (NUMBER OF E1)
             
             # NORMALIZING FUNCTION f(m): m is metric 
-            volume_factors = [(4./3)*pi*((ri + dr)**3 - ri**3) for ri in r]
+            volume_factors = [(4./3)*math.pi*((ri + dr)**3 - ri**3) for ri in r]
 
             normalized_P2_density = [v/(totalA*volume_factors[i]) for 
                                      i, v in enumerate(d_c_total)]

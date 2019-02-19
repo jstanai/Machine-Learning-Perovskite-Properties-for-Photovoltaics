@@ -14,7 +14,7 @@ import csv
 import math
 import matplotlib.pyplot as plt
 import itertools
-import builder.perovskiteBuilderConfig as c
+from builder import perovskiteBuilderConfig as c
 
 def main():
 
@@ -269,7 +269,12 @@ def generateCrystals(numCrystalTries, Asite, Bsite, Xsite,
             d = d + [counts]
      
     # Process duplicates, NaNs and Data
+    
+    
     df1 = pd.DataFrame(data = d) 
+    
+    
+    
     df1 = df1.fillna(0) 
     dup_check = ['e_list']
     df1 = df1.drop_duplicates(dup_check) 

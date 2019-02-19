@@ -31,7 +31,7 @@ def getData(mode):
         dff = dff.copy().dropna(axis=0, how='any').reset_index()
     
         dffExt = pd.read_csv(myConfig.featurePathExt)
-        dffExt = dffExt.copy().dropna(axis=0, how='any').reset_index()
+        dffExt = dffExt.copy().dropna(axis=0, how='any').reset_index()        
     
     # SPLIT-SET MODE:
     #   dff data is partioned into two subsets: 
@@ -44,13 +44,13 @@ def getData(mode):
         dffExt = pd.read_csv(myConfig.featurePath)
         
         for i in leaveOut:
-            dff = dff[dff['frac' + leaveOut] == 0.0]
-            dffExt = dffExt[dffExt['frac' + leaveOut] > 0.0]
+            dff = dff[dff['frac' + i] == 0.0]
+            dffExt = dffExt[dffExt['frac' + i] > 0.0]
         
         dff = dff.copy().dropna(axis=0, how='any').reset_index()
         dffExt = dffExt.copy().dropna(axis=0, how='any').reset_index()
         
-        print('no ' + leaveOut, '- set size: ', len(dff))
+        print('no ' + str(leaveOut), '- set size: ', len(dff))
         print('contains ', '- set size: ', len(dffExt))
       
     # CONVEX HULL INCLUSION:
@@ -119,6 +119,8 @@ def main():
                'best_gamma', 'best_alpha', 'dr', 'cv', 'v_cutoff', 
                'sfm_threshold', 'rmax', 'num_features']
     
+    if (myConfig.mode == 'ext'): dc_cols += ['yhat_ext']
+    
     dc = pd.DataFrame(index = range(len(cube)), columns = dc_cols)
     
     #
@@ -178,6 +180,8 @@ def main():
                                              getExampleLearningCurve = False,
                                              getExampleMLPlot = False,
                                              printErrorReports = False)
+                
+        
         else: 
             result = krr.get_krr_performance(X_c, y_labels, 
                                              alphaRange, gammaRange, 
@@ -188,6 +192,7 @@ def main():
         
         # AVERAGE OVER TRIALS 
         result = result.mean(axis=0)
+
         
         # ADD MODEL META DATA
         result['dr']            = param[0]
@@ -196,6 +201,7 @@ def main():
         result['sfm_threshold'] = param[3]
         result['rmax']          = param[4]
         result['num_features']  = len(X_c.columns)
+        
             
         dc.loc[ii] = result
         

@@ -12,10 +12,9 @@ from os.path import isfile, join
 import multiprocessing as mp
 import numpy as np
 import dbConfig
-import myConfig
-import dummyCrystalBuilder as dc
-from feature import getCompFeature
-from feature import printMaxMinCells
+
+from builder.dummyCrystalBuilder import processDummyCrystals
+from ml.feature import getCompFeature
 
 def import_content(db, filename, collection):
 
@@ -54,6 +53,8 @@ def update_database(db, folder, collection):
         { "$project": { "fromItems": 0 } }, 
         { "$out": collection + "_aggregated" }
     ]) 
+    
+    print('Done.')
 
 def parallelize(df, numProcesses, func):
     
@@ -73,13 +74,15 @@ def process_features(db, **kwargs):
     df =  pd.DataFrame(list(db['qw_outputs_aggregated'].find()))
     
     if dbConfig.dummy == True:
-        df = dc.processDummyCrystals(df)  
+        df = processDummyCrystals(df)  
     
     print('Processing Features... ')
     if kwargs['numProcesses'] > 1:
         feature = parallelize(df, kwargs['numProcesses'], getCompFeature)
     else:
         feature = getCompFeature(df) 
+        
+    print('Len features', len(feature.columns))
     
     if dbConfig.saveFeatures == True:
         feature.to_csv(dbConfig.saveFeaturesPath + 
@@ -96,7 +99,7 @@ def main():
     
     db = getDB()
 
-    update_database(db, dbConfig.crystalDBFolder, 'qw_outputs')
+    #update_database(db, dbConfig.crystalDBFolder, 'qw_outputs')
     process_features(db, numProcesses = 4)  
     update_database(db, dbConfig.featureDBFolder, 'features')  
     

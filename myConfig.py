@@ -23,8 +23,8 @@ i/o
 """
 
 projectPath = './data'
-featurePath = projectPath + '/features/d2_paper/d2_paper_24102018.csv'
-featurePathExt = projectPath + '/features/dummy_paper5000_1per_26102018.csv'
+featurePath = projectPath + '/features/344_01.csv'
+featurePathExt = projectPath + '/features/dummy_01.csv'
 dataCubeOutput = 'outputs/result.csv'
 deltaH_qmpyFile = '/hull/compEnergy_qmdb_d3.csv'
 
@@ -71,7 +71,7 @@ mode = 'ext'
 leaveOut = ['Cs'] 
 includeHull = False
 targetLabel = 'dir_gap'
-splitNumber = 20
+splitNumber = 1
 testPercent = 0.1
 
 #gammaRange = np.array([1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1]) 
@@ -93,7 +93,7 @@ alphaRange = gammaRange
 #        np.array([15.0, 10.0, 5.0]) #rmax
 #        ))
 
-cube = [[0.3, 4, 0.001, 0.01, 15.0]] 
+cube = [[0.2, 8, 0.001, 0.1, 15.0]] 
 
 
 

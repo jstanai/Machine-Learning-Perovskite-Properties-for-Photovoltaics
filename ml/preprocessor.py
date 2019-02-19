@@ -47,6 +47,7 @@ def preprocess(X, userRange, pList, vthreshold, y, sfm_threshold,
     scaler = MaxAbsScaler(copy=True)  
     model = scaler.fit(X)
     Xt = model.transform(X)
+    
     X = pd.DataFrame(Xt,index=X.index, columns=X.columns)
     
     # REDUCE BASED ON VARIANCE    

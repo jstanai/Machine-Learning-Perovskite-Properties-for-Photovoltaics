@@ -10,10 +10,13 @@
 host='localhost'
 port=27017
 
-dummy=False
+dummy=True
+
+saveFeatures = True
 
 featureDBFolder = '/Users/Jared/Dropbox/Master Thesis/Data/featureDB2/'
 crystalDBFolder = '/Users/Jared/Dropbox/Master Thesis/Data/crystalDB2/'
 
-saveFeaturesFile='junk.csv'
-saveFeaturesPath='/Users/Jared/Dropbox/Master Thesis/Data/featureDB2/'
+saveFeaturesFile='dummy_01.csv'
+saveFeaturesPath='./data/features/'
+
