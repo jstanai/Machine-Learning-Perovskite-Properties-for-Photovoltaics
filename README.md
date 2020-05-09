@@ -6,7 +6,7 @@ Stanley, J.C., Mayr, F. and Gagliardi, A. (2020), Machine Learning Stability and
 
 This software contains several important modules for building crystals, running predictions, and automating VNL job script creation. Additionally, it contains over 300 quantum calculations for perovskite compositional mixtures developed using VNL-ATK 2017. We use these data to train a machine learning algorithm, using novel property density distribution function (PDDF) to encode the local atomic environment based on a fundamental set of atomic properities. This allows us to find a general algorithm to prediction of key material properites, such as bandgap and formation energy. 
 
-![Results](https://github.com/jstanai/Machine-Learning-Perovskite-Properties-for-Photovoltaics/blob/master/images/Results.png "Key Results")
+![Results](https://github.com/jstanai/Machine-Learning-Perovskite-Properties-for-Photovoltaics/blob/master/images/Results.jpg "Key Results")
 
 This software contains several modules to help researches build perovskite crystals from scratch, visualize them
 There are three primary modules used to accomplish this task, which can also be used separately for various kinds of analysis and job-scripting. Please feel free to contact me with questions!
@@ -36,7 +36,7 @@ Using a database of crystals generated in VNL-ATK 2017, we can apply supervised 
 
 Here, we use a Kernel Ridge Regression as a dual representation of the the regularized least-squares formalism with the Gaussian kernel
 
-![Kernel](hhttps://github.com/jstanai/Machine-Learning-Perovskite-Properties-for-Photovoltaics/blob/master/images/GaussianKernel.png "Gaussian Kernel")
+![Kernel](https://github.com/jstanai/Machine-Learning-Perovskite-Properties-for-Photovoltaics/blob/master/images/GaussianKernel.png "Gaussian Kernel")
 
 as a similarity measure between two crystal feature vectors. Technically, implicit feature maps are defined by the kernel function, whereas *descriptors* generated from the material fingerprint would correspond to each observation **x**. Such descriptors are encoded from elemental properties and their configuration within each crystal using the PDDF method. 
 
