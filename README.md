@@ -2,7 +2,10 @@
 
 This software was developed during my masters research and enables the user to perform end-to-end analysis of VNL-ATK 2017 Density Functional Theory (DFT) calculations using Kernel Ridge Regression. This work was published and can be cited as:
 
-Stanley, J.C., Mayr, F. and Gagliardi, A. (2020), Machine Learning Stability and Bandgaps of Lead‐Free Perovskites for Photovoltaics. Adv. Theory Simul., 3: 1900178. doi:10.1002/adts.201900178
+```
+Stanley, J.C., Mayr, F. and Gagliardi, A. (2020), Machine Learning Stability and Bandgaps of Lead‐Free 
+Perovskites for Photovoltaics. Adv. Theory Simul., 3: 1900178. doi:10.1002/adts.201900178
+```
 
 This software contains several important modules for building crystals, running predictions, and automating VNL job script creation. Additionally, it contains over 300 quantum calculations for perovskite compositional mixtures developed using VNL-ATK 2017. We use these data to train a machine learning algorithm, using novel property density distribution function (PDDF) to encode the local atomic environment based on a fundamental set of atomic properities. This allows us to find a general algorithm to prediction of key material properites, such as bandgap and formation energy. 
 
