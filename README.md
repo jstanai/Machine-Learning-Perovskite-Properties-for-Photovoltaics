@@ -14,8 +14,10 @@ This software contains several important modules for building crystals, running 
 This software contains several modules to help researches build perovskite crystals from scratch, visualize them
 There are three primary modules used to accomplish this task, which can also be used separately for various kinds of analysis and job-scripting. Please feel free to contact me with questions!
 
-Jared Stanley
+**Jared Stanley**:
+
 https://www.linkedin.com/feed/
+
 jcamstan@gmail.com
 
 
