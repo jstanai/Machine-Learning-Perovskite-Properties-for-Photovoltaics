@@ -20,7 +20,6 @@ https://www.linkedin.com/feed/
 
 jcamstan@gmail.com
 
-
 ## Table of Contents
 [Introduction](#introduction)
 
@@ -35,7 +34,7 @@ jcamstan@gmail.com
 [Acknowledgements](#acknowledgements)
 
 
-### Introduction
+## Introduction
 
 Using a database of crystals generated in VNL-ATK 2017, we can apply supervised machine learning to predict important material properties for many kinds of applications, such as photovoltaics. Quantities such as the direct or indirect bandgap, formation energy, convex-hull energy distance, effective masses m<sub>e</sub> or m<sub>h</sub>, and many other quantities from the VNL framework can be set as the response, and then predicted using design matrix **X**.
 
@@ -47,7 +46,7 @@ as a similarity measure between two crystal feature vectors. Technically, implic
 
 More details can be found in the attached PDF of the full thesis.
 
-### Data
+## Data
 #### Validation of Density Functional Theory Parameters
 
 Extensive convergence tests were performed on 30 mixed and non-mixed compositions from
@@ -91,7 +90,9 @@ Following the paper, this repository has several data sets contained in the `/da
 
 Many of the data can be found within the paper and supporting information. In particular, Pb data, thermodynamic data, and convergence data can be found in the Supporting Information section. 
 
-### Builder Module
+## Builder Module
+
+This module is reponsible for contructing crystals that can be visualized and used for prediction.
 
 #### File definitions
 - `perovskiteConfig.py` - configures elements, lattice vectors, outputs, etc. for perovskiteBuilder.py
