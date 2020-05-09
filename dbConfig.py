@@ -17,6 +17,6 @@ saveFeatures = True
 featureDBFolder = '/Users/Jared/Dropbox/Master Thesis/Data/featureDB2/'
 crystalDBFolder = '/Users/Jared/Dropbox/Master Thesis/Data/crystalDB2/'
 
-saveFeaturesFile='dummy_01.csv'
+saveFeaturesFile='junk.csv'
 saveFeaturesPath='./data/features/'
 

@@ -70,13 +70,14 @@ def parallelize(df, numProcesses, func):
     return results_df
 
 def process_features(db, **kwargs):
-    
+ 
     df =  pd.DataFrame(list(db['qw_outputs_aggregated'].find()))
     
     if dbConfig.dummy == True:
         df = processDummyCrystals(df)  
     
     print('Processing Features... ')
+    df = df.drop(df[df['nIterations'] >= 201].index).copy()
     if kwargs['numProcesses'] > 1:
         feature = parallelize(df, kwargs['numProcesses'], getCompFeature)
     else:
@@ -99,7 +100,7 @@ def main():
     
     db = getDB()
 
-    #update_database(db, dbConfig.crystalDBFolder, 'qw_outputs')
+    update_database(db, dbConfig.crystalDBFolder, 'qw_outputs')
     process_features(db, numProcesses = 4)  
     update_database(db, dbConfig.featureDBFolder, 'features')  
     

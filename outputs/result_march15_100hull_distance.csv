@@ -1,0 +1,2 @@
+,rms_train_mean,rms_test_mean,rel_train_mean,rel_test_mean,bestscore_mean,best_gamma_mean,best_alpha_mean,rms_train_std,rms_test_std,rel_train_std,rel_test_std,bestscore_std,best_gamma_std,best_alpha_std,dr,cv,v_cutoff,sfm_threshold,rmax,num_features,yhat_ext
+0,0.11837354870255914,0.20294490862687597,6.79539940631747,12.655465089181694,0.847144494376546,1e-10,1e-10,,,,,,,,0.2,8.0,0.001,0.1,15.0,80.0,

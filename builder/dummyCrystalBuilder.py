@@ -25,20 +25,29 @@ def mixFracCoords(fracCoords, cf):
 def processDummyCrystals(df):
     
     df_row = df.head(1).copy() #enforce df is single row
-    
+    print(df)
     #
     #
     # lattice multiplication:    
     mnum = dc.lattice_mul
     m0 = [[1., 1., 1.]]
     m = m0*mnum
-
+    
     c = dc.lattice_variation_percent/100 # percent lattice vector deviation
     for mind, mx in enumerate(m):
         
-        m[mind] = [mx[0]+float(random.uniform(-c, c)),
-                   mx[1]+float(random.uniform(-c, c)),
-                   mx[2]+float(random.uniform(-c, c))]
+        r = float(random.uniform(-c, c))
+        
+        if dc.keep_aspect == True:
+             
+            m[mind] = [mx[0]+r,
+                       mx[1]+r,
+                       mx[2]+r]
+            
+        else: 
+            m[mind] = [mx[0]+float(random.uniform(-c, c)),
+                       mx[1]+float(random.uniform(-c, c)),
+                       mx[2]+float(random.uniform(-c, c))]
       
     n = dc.lattice_comp_num # number of crystals at same composition to generate
     fnum = dc.fnum # number of randomizations for each crystal
@@ -59,12 +68,12 @@ def processDummyCrystals(df):
                               fracCoords, getAll = True, 
                               halfCell = True, symmetry = False, start = 0)
     
+    n = len(df1)
+    
     df_dummy = pd.concat([df_row]*len(df1), ignore_index=True)
     df_dummy.reset_index()
     df_dummy = df_dummy.copy()
     
-    print('now here')
-    print(df1['e_list'])
     # fill with mixed elements
     elementsdf = df1['e_list'].copy()
     for ind, i in enumerate(elementsdf):
@@ -82,6 +91,7 @@ def processDummyCrystals(df):
                        0.0,         mv[1]*li[1], 0.0, 
                        0.0,         0.0,         mv[2]*li[2]]) 
      
+        
         df_dummy.loc[n*mi:n*(mi + 1) - 1, 'cellPrimVectors_end'] = lattice
     
     # repeat for random fracCoord fnum times

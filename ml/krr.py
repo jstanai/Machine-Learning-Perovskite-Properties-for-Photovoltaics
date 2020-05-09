@@ -121,8 +121,10 @@ def get_krr_performance(X, y_labels, alphaRange, gammaRange,
             s = s.append(pd.Series({
                 'rms_ext'   : np.sqrt(mse(kwargs['y_ext'], yhat_ext)),
                 'rel_ext'   : mre(kwargs['y_ext'], yhat_ext),
-                'yhat_ext'  : np.array(yhat_ext)
                 }))
+
+            pd.DataFrame(yhat_ext, columns = ['yhat_ext']).to_csv(
+                                 myConfig.extOutput, index = False)
     
         result.loc[index] = s
     

@@ -23,10 +23,11 @@ i/o
 """
 
 projectPath = './data'
-featurePath = projectPath + '/features/344_01.csv'
-featurePathExt = projectPath + '/features/dummy_01.csv'
-dataCubeOutput = 'outputs/result.csv'
-deltaH_qmpyFile = '/hull/compEnergy_qmdb_d3.csv'
+featurePath = projectPath + '/features/344_paperUpdated.csv'
+featurePathExt = projectPath + '/features/dummy_all_halide_mix_0313.csv'
+dataCubeOutput = 'outputs/result_march15_100hull_distance.csv'
+deltaH_qmpyFile = projectPath + '/hull/compEnergy_qmdb_d3.csv'
+extOutput = projectPath + '/features/extOutput_mul1_50_fnum10.csv'
 
 """
 Feature Construction
@@ -43,7 +44,7 @@ properties = ['X', 'EI1', 'rp', 'rs', 'ra', 'EI2', 'l',
               'h', 'fermi', 'ir', 'socc', 'pocc']
 
 dr = 0.2
-rmax = 15.1 
+rmax = 15.1
 
 """
 Model Parameters
@@ -65,14 +66,16 @@ Model Parameters
                       
     targetLabel controls what the prediction column should be.
 """
-
+'''
+OPTIONS: hull_distance, dir_gap, dH_formation
+'''
 
 mode = 'ext'
-leaveOut = ['Cs'] 
-includeHull = False
+leaveOut = [] 
+includeHull = True
 targetLabel = 'dir_gap'
 splitNumber = 1
-testPercent = 0.1
+testPercent = 0.1 #(.1 = 10%)
 
 #gammaRange = np.array([1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1]) 
 #alphaRange = np.array([1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1]) 
@@ -82,20 +85,27 @@ alphaRange = gammaRange
  
 # MODELS TO RUN M = (dr, cv, v_cutoff, sfm, rmax)
 # DEFAULT MODEL (M_BEST FOR BANDGAP)
-#   [0.2, 8, 0.001, 0.1, 15.0]
+#   [0.2, 8, 0.001, 0.1 (0.01), 15.0]
 
+'''
 
-#cube = list(product(
-#        np.array([0.2, 1.2, 2.2]), #dr
-#        np.array([4, 8]),       # cv cross-fold-validation folds (int)
-#        np.array([2e-2, 1e-2, 1e-3, 0.0]),  #v_cutoff variance threshold
-#        np.array([0.4, 0.2, 0.1, 0.01, 0.0]), # sfm_threshold 
-#        np.array([15.0, 10.0, 5.0]) #rmax
-#        ))
+cube = list(product(
+        np.array([0.2, 1.2, 2.2]), #dr
+        np.array([4, 8]),       # cv cross-fold-validation folds (int)
+        np.array([2e-2, 1e-2, 1e-3, 0.0]),  #v_cutoff variance threshold
+        np.array([0.4, 0.2, 0.1, 0.01, 0.0]), # sfm_threshold 
+        np.array([15.0, 10.0, 5.0]) #rmax
+        ))
+'''
 
 cube = [[0.2, 8, 0.001, 0.1, 15.0]] 
 
+# Mhull
+#cube = [[0.2, 8, 0.001, 0.0001, 15.0]] 
 
+
+
+# used for latest cube = [[0.2, 8, 0.001, 0.01, 15.0]] 
 
 
 

@@ -117,13 +117,13 @@ def generateElements(Asite, Bsite, Xsite, res, **kwargs):
     # -> not the full configuration space as it is subject to mixing fraction
     #    contraints!
     if kwargs['getAll'] == True:
-        
+        print('Getting all configs...')
         Alist = list(itertools.combinations_with_replacement(
                     list(range(len(Asite))), n_a))    
     
         Alist2 = []
         for e in Alist:
-            Alist2 += itertools.permutations(e)     
+            Alist2 += [i for i in itertools.permutations(e)]
         Alist = list(set(Alist2))
         
         Asites = []
@@ -140,7 +140,8 @@ def generateElements(Asite, Bsite, Xsite, res, **kwargs):
 
         Blist2 = []
         for e in Blist:
-            Blist2 += itertools.permutations(e)      
+            Blist2 += [i for i in itertools.permutations(e)]
+            
         Blist = list(set(Blist2))
 
         Bsites = []
@@ -154,13 +155,15 @@ def generateElements(Asite, Bsite, Xsite, res, **kwargs):
         
         Xlist = list(itertools.combinations_with_replacement(
                     list(range(len(Xsite))), n_x))
-
+        
         Xlist2 = []
         for e in Xlist:
-            Xlist2 += itertools.permutations(e)    
+            Xlist2 += itertools.permutations(e)
+           
         Xlist = list(set(Xlist2))
         
         Xsites = []
+        
         for pair in Xlist:
             Xsite_p = [Xsite[e] for e in pair]  
             

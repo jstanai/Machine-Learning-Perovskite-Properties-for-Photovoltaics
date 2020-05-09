@@ -22,6 +22,8 @@ def getData(mode):
     if mode == 'default':
         dff = pd.read_csv(myConfig.featurePath)
         dff = dff.copy().dropna(axis=0, how='any').reset_index()
+        
+        dffExt = dff.copy()
       
     # EXT MODE:
     #   dff is split into training and dev-sets to determine model.
@@ -66,19 +68,20 @@ def getData(mode):
         dff = pd.merge(dff, deltaH_qmpy[['crystal_id', 'deltaH_hull']], 
                        on=['crystal_id'])
         
+        # ev/atom
         dff['hull_distance'] = dff.apply(lambda x: 
             (x['dH_formation'] - x['deltaH_hull']), axis=1)
         
         
         # test set merge
-        if mode != 'default':
-            dffExt = pd.merge(dffExt, 
-                              deltaH_qmpy[['crystal_id', 'deltaH_hull']], 
-                              on=['crystal_id'])
-            
-            dffExt['hull_distance'] = dffExt.apply(lambda x: 
-                (x['dH_formation'] - x['deltaH_hull']),
-                axis=1)
+        #if mode != 'default':
+        dffExt = pd.merge(dffExt, 
+                          deltaH_qmpy[['crystal_id', 'deltaH_hull']], 
+                          on=['crystal_id'])
+        
+        dffExt['hull_distance'] = dffExt.apply(lambda x: 
+            (x['dH_formation'] - x['deltaH_hull']),
+            axis=1)
         
     return dff, dffExt
 
@@ -115,8 +118,21 @@ def main():
     #
     #
     # PRE-ALLOCATE DATAFRAME OUTPUT
-    dc_cols = ['rms_train', 'rms_test', 'rel_train', 'rel_test', 'bestscore',
-               'best_gamma', 'best_alpha', 'dr', 'cv', 'v_cutoff', 
+    dc_cols = ['rms_train_mean', 
+               'rms_test_mean', 
+               'rel_train_mean', 
+               'rel_test_mean', 
+               'bestscore_mean',
+               'best_gamma_mean', 
+               'best_alpha_mean', 
+               'rms_train_std', 
+               'rms_test_std', 
+               'rel_train_std', 
+               'rel_test_std', 
+               'bestscore_std',
+               'best_gamma_std', 
+               'best_alpha_std', 
+               'dr', 'cv', 'v_cutoff', 
                'sfm_threshold', 'rmax', 'num_features']
     
     if (myConfig.mode == 'ext'): dc_cols += ['yhat_ext']
@@ -181,7 +197,6 @@ def main():
                                              getExampleMLPlot = False,
                                              printErrorReports = False)
                 
-        
         else: 
             result = krr.get_krr_performance(X_c, y_labels, 
                                              alphaRange, gammaRange, 
@@ -191,7 +206,16 @@ def main():
                                              printErrorReports = False)
         
         # AVERAGE OVER TRIALS 
-        result = result.mean(axis=0)
+        
+     
+        
+        r1 = result.mean(axis=0)
+        r1 = r1.rename(lambda x: str(x) + '_mean')
+        
+        r2 = result.std(axis=0)
+        r2 = r2.rename(lambda x: str(x) + '_std')
+    
+        result = r1.append(r2)
 
         
         # ADD MODEL META DATA

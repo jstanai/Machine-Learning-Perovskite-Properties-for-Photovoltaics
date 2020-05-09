@@ -57,7 +57,7 @@ def preprocess(X, userRange, pList, vthreshold, y, sfm_threshold,
         return
     
     Xnew = X.copy()  
-    clf = ElasticNetCV(n_jobs = -1, cv=5, tol=0.001)
+    clf = ElasticNetCV(n_jobs = -1, cv=3, tol=0.001)
     sfm = SelectFromModel(clf, threshold = sfm_threshold) 
         
     sfm.fit(Xnew, y)

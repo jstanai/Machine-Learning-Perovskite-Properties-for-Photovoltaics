@@ -14,11 +14,11 @@ def getDist(p1, p2):
 
 def pdf_element_density(elements, positions, r, dr, la, lb, lc, r_cut):
     
-    elements = Counter(elements) 
+    el = Counter(elements) 
     
     elements_d_c_total = {}
      
-    for element in elements:      
+    for element in el:      
          
         pos = [positions[i] for i, e in enumerate(elements) if e == element]
         els = [e for e in elements if e == element] 
@@ -26,7 +26,7 @@ def pdf_element_density(elements, positions, r, dr, la, lb, lc, r_cut):
         d_c_total = [0]*len(r) 
         
         ea_bound = np.arange(-r_cut[0], r_cut[0] + 1, 1)*la
-        eb_bound = np.arange(-(r_cut[1] + 1), r_cut[1] + 2, 1)*lb
+        eb_bound = np.arange(-r_cut[1], r_cut[1] + 1, 1)*lb
         ec_bound = np.arange(-r_cut[2], r_cut[2] + 1, 1)*lc
         
         # FOR EACH ATOM LOCATION IN CELL
@@ -35,9 +35,11 @@ def pdf_element_density(elements, positions, r, dr, la, lb, lc, r_cut):
             # FIND DENSITY FROM ELEMENT e2
             for j, e2 in enumerate(els):
                 
-                ea = pos[j][0] + ea_bound
-                eb = pos[j][1] + eb_bound
-                ec = pos[j][2] + ec_bound
+                p1 = pos[j]
+                
+                ea = p1[0] + ea_bound
+                eb = p1[1] + eb_bound
+                ec = p1[2] + ec_bound
                 
                 p = list(product(ea, eb, ec))
             
@@ -57,5 +59,5 @@ def pdf_element_density(elements, positions, r, dr, la, lb, lc, r_cut):
                                      i, v in enumerate(d_c_total)]
         
             elements_d_c_total[element] = normalized_P2_density
-               
+            
     return(elements_d_c_total)
